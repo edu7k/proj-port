@@ -1,10 +1,19 @@
 ﻿namespace Proj
 {
-    internal class Program
+    public class Program
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Hello, World!");
+            int op, escolha;
+            bool sair = false;
+            while (!sair)
+            {
+                Interface.MenuPrincipal();
+                op = int.Parse(Console.ReadLine());
+                Operacoes.OperacaoPrincipal(op, sair);
+
+            }
+
         }
     }
 }

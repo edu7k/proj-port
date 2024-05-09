@@ -12,7 +12,11 @@ namespace Proj.Model
         public string Name { get; set; }
         public string Cpf { get; set; }
 
-
-
+        public Cliente(string id, string name, string cpf)
+        {
+            Id = id;
+            Name = name;
+            Cpf = cpf;
+        }
     }
 }
