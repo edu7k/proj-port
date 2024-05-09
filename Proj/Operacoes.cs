@@ -4,6 +4,7 @@ using System.ComponentModel.Design;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Proj.Model;
 
 namespace Proj
 {
@@ -33,11 +34,12 @@ namespace Proj
                 }
 
         }
-        public static void OperacaoProdutos(int escolha, bool sair)
+        public static void OperacaoProdutos(int escolha, bool sair, ProdutoDB pdb)
         {
             switch (escolha)
             {
                 case 1:
+                    
                     Console.WriteLine("Adicionando produto...");
                     break;
                 case 2:
@@ -60,7 +62,6 @@ namespace Proj
                     break;
             }
         }
-
         public static void OperacaoCliente(int escolha, bool sair)
         {
             switch (escolha)
@@ -83,6 +84,42 @@ namespace Proj
 
             }
         }
+
+
+        public static void AddProduto(ProdutoDB pdb)
+        {
+            var Cadastra = new Produto();
+            Cadastra.Id = pdb.GetProduto().Count() + 1;
+            
+            Console.WriteLine("Nome do Produto: ");
+            Cadastra.Nome = Console.ReadLine();
+            Console.WriteLine("Quantidade de Produtos: ");
+            Cadastra.Quantidade = int.Parse(Console.ReadLine());
+            Console.WriteLine("Preco do Produto: ");
+            Cadastra.Preco = double.Parse(Console.ReadLine());
+
+            pdb.Estoque.Add(Cadastra);
+        }
+
+        public static void RemoveProduto(ProdutoDB pdb) 
+        {
+        
+        }
+
+        public static void AddCliente(ClienteDB cdb)
+        {
+            var Cadastra = new Cliente();
+            Cadastra.Id = cdb.GetClientes().Count() + 1;
+
+            Console.WriteLine("Nome do Cliente: ");
+            Cadastra.Nome = Console.ReadLine();
+            Console.WriteLine("Digite CPF: ");
+            Cadastra.Cpf = Console.ReadLine();
+            
+
+            cdb.Clientes.Add(Cadastra);
+        }
+
 
     }
 }

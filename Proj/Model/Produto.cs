@@ -8,17 +8,11 @@ namespace Proj.Model
 {
     public class Produto
     {
-        public string Id { get; set; }
+        public int Id { get; set; }
         public string Nome { get; set; }
         public int Quantidade { get; set; }
         public double Preco { get; set; }
 
-        public Produto(string id, string nome, int quantidade, double preco)
-        {
-            Id = id;
-            Nome = nome;
-            Quantidade = quantidade;
-            Preco = preco;
-        }
+        
     }
 }
