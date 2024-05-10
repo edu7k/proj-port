@@ -4,25 +4,26 @@ using System.ComponentModel.Design;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Proj.DB;
 using Proj.Model;
 
 namespace Proj
 {
     public class Operacoes
     {
-        public static void OperacaoPrincipal(int opcao, bool sair)
+        public static void OperacaoPrincipal(int opcao, bool sair, ProdutoDB pdb, ClienteDB cdb)
         {
                 switch (opcao)
                 {
                     case 1:
                         Interface.MenuProdutos();
                         opcao = int.Parse(Console.ReadLine());
-                        OperacaoProdutos(opcao, sair);
+                        OperacaoProdutos(opcao, sair, pdb);
                         break;
                     case 2:
                         Interface.MenuClientes();
                         opcao = int.Parse(Console.ReadLine());
-                        OperacaoCliente(opcao, sair);
+                        OperacaoCliente(opcao, sair, cdb);
                         break;
                     case 3:
                         sair = true;
@@ -62,7 +63,7 @@ namespace Proj
                     break;
             }
         }
-        public static void OperacaoCliente(int escolha, bool sair)
+        public static void OperacaoCliente(int escolha, bool sair, ClienteDB cdb)
         {
             switch (escolha)
             {
@@ -103,7 +104,75 @@ namespace Proj
 
         public static void RemoveProduto(ProdutoDB pdb) 
         {
-        
+            int id, removido;
+            Interface.MostraProdutos(pdb);
+            Console.WriteLine("Selecione ID do produto a remover: ");
+            id = int.Parse(Console.ReadLine());
+            removido = pdb.Estoque.RemoveAll(Produto => Produto.Id == id);
+            
+            if (removido > 0)
+            {
+                Console.WriteLine("Removido!");
+                Console.ReadKey();
+                Console.Clear();
+            }
+            else
+            {
+                Console.WriteLine("Não está na lista");
+                return;
+            }
+
+
+        }
+
+        public static void AddQuantidade(ProdutoDB pdb)
+        {
+            Interface.MostraProdutos(pdb);
+            Console.WriteLine("Selecione ID do produto: ");
+            int id = int.Parse(Console.ReadLine());
+            Console.Clear();
+            Console.WriteLine("Quantidade a ser adicionada: ");
+            int qnt = int.Parse(Console.ReadLine());
+
+            foreach (var Produto in pdb.Estoque)
+            {
+                if (Produto.Id == id)
+                {
+                    Produto.Quantidade += qnt;
+                    Console.WriteLine("Quantidade Adicionada!");
+                }
+                else
+                {
+                    Console.WriteLine("Produto não ta na lista");
+                    return;
+                }
+            }
+            
+        }
+
+        public static void RemoveQuantidade(ProdutoDB pdb)
+        {
+            Interface.MostraProdutos(pdb);
+            Console.WriteLine("Selecione ID do produto: ");
+            int id = int.Parse(Console.ReadLine());
+            Console.Clear();
+            Console.WriteLine("Quantidade a ser removido: ");
+            int qnt = int.Parse(Console.ReadLine());
+
+            foreach (var Produto in pdb.Estoque)
+            {
+                if (Produto.Id == id)
+                {
+                    Produto.Quantidade -= qnt;
+                    Console.WriteLine("Quantidade Removida!");
+                }
+                else
+                {
+                    Console.WriteLine("Produto não ta na lista");
+                    return;
+                }
+            }
+
         }
 
         public static void AddCliente(ClienteDB cdb)
@@ -120,7 +189,15 @@ namespace Proj
             cdb.Clientes.Add(Cadastra);
         }
 
-
+        public static void RealizarVenda(ClienteDB cdb, ProdutoDB pdb)
+        {
+            List<Produto> Venda = new ProdutoDB()
+            Interface.MostraClientes(cdb);
+            Console.WriteLine("Selecione o ID do cliente para compra: ");
+            int id = int.Parse(Console.ReadLine());
+            Interface.MostraProdutos(pdb);
+            Console.WriteLine("");
+        }
     }
 }
 

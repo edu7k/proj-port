@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using ConsoleTables;
+using Proj.DB;
 
 namespace Proj
 {
@@ -35,6 +37,23 @@ namespace Proj
                 Console.WriteLine("3. ALTERAR DADOS");
                 Console.WriteLine("4. VOLTAR");    
         }
+
+        public static void MostraProdutos(ProdutoDB pdb)
+        {
+            var table = pdb.GetProduto();
+
+            ConsoleTable.From(table).Write();
+
+        }
+
+        public static void MostraClientes(ClienteDB cdb)
+        {
+            var table = cdb.GetClientes();
+
+            ConsoleTable.From(table).Write();
+
+        }
+
     }
 
 }
