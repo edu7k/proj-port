@@ -54,6 +54,14 @@ namespace Proj
 
         }
 
+        public static void MostraVendas(VendaDB vdb)
+        {
+            var table = vdb.GetVendas();
+
+            ConsoleTable.From(table).Write();
+
+        }
+
     }
 
 }
